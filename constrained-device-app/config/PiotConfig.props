@@ -1,0 +1,68 @@
+#####
+# Configuration file for the Constrained Device App (CDA)
+#
+# This provides a section-based configuration format for use by
+# ConfigUtil with keys defined in ConfigConst.
+#
+
+#
+# MQTT client configuration information
+#
+[Mqtt.GatewayService]
+credFile       = ./cred/PiotMqttCred.props
+certFile       = ./cert/PiotMqttLocalCertFile.pem
+host           = localhost
+port           = 1883
+securePort     = 1884
+defaultQoS     = 0
+keepAlive      = 30
+enableCrypt    = False
+
+#
+# CoAP client configuration information
+#
+[Coap.GatewayService]
+credFile       = ./cred/PiotCoapCred.props
+certFile       = ./cert/PiotCoapLocalCertFile.pem
+host           = localhost
+port           = 5683
+securePort     = 5684
+enableCrypt    = False
+
+#
+# CDA specific configuration information
+#
+[ConstrainedDevice]
+enableEmulator  = True
+enableSenseHAT  = False
+enableLogging   = True
+enableMqtt = True
+enableCoap = False
+pollCycleSecs   = 60
+testGdaDataPath = /tmp/gda-data
+testCdaDataPath = /tmp/cda-data
+
+# configurable limits for sensor simulation
+humiditySimFloor   = 30
+humiditySimCeiling = 50
+pressureSimFloor   = 990
+pressureSimCeiling = 1010
+tempSimFloor       = 15
+tempSimCeiling     = 28
+fireProbThreshold  = 90
+
+# configurable limits for actuator triggers
+enableHandleTempChangeOnDevice = True
+triggerHvacTempFloor = 15
+triggerHvacTempCeiling = 28
+
+
+
+#
+# Persistence client configuration information
+#
+[Data.GatewayService]
+credFile = ./cred/PiotPersistenceCred.props
+host = localhost
+port = 6379
+enableCrypt = False

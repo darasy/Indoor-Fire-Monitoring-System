@@ -1,0 +1,104 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>org.eclipse.californium</groupId>
+		<artifactId>cf-bom</artifactId>
+		<version>2.5.0-SNAPSHOT</version>
+	</parent>
+
+	<artifactId>tools</artifactId>
+	<packaging>pom</packaging>
+
+	<name>Californium (Cf) Tools</name>
+	<description>CoAP tools</description>
+	<scm>
+		<developerConnection>scm:git:ssh://git@github.com/eclipse/californium.tools.git</developerConnection>
+		<url>https://github.com/eclipse/californium.tools</url>
+		<tag>HEAD</tag>
+	</scm>
+
+	<repositories>
+		<repository>
+			<id>repo.eclipse.org</id>
+			<name>Californium Repository - Releases</name>
+			<url>https://repo.eclipse.org/content/repositories/californium-releases/</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
+		<repository>
+			<id>eclipse_snapshots</id>
+			<name>Eclipse Snapshots</name>
+			<url>https://repo.eclipse.org/content/repositories/snapshots/</url>
+			<releases>
+				<enabled>false</enabled>
+			</releases>
+		</repository>
+	</repositories>
+
+	<modules>
+		<module>cf-browser</module>
+		<module>cf-client</module>
+		<module>cf-coapbench</module>
+		<module>cf-polyfill</module>
+		<module>cf-rd</module>
+		<module>cf-server</module>
+	</modules>
+
+	<properties>
+		<!-- 
+			this property prevents the Nexus Staging Maven Plugin to
+			deploy this module's artifacts to Maven Central's staging repo
+		 -->
+		<skipStaging>true</skipStaging>
+		<!-- 
+			never create JavaDoc for this module
+		 -->
+		<maven.javadoc.skip>true</maven.javadoc.skip>
+		<animal.sniffer.skip>true</animal.sniffer.skip>
+		<revapi.skip>true</revapi.skip>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>californium-legal</artifactId>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>copy-installed</id>
+						<phase>install</phase>
+						<goals>
+							<goal>copy</goal>
+						</goals>
+						<configuration>
+							<artifactItems>
+								<artifactItem>
+									<groupId>${project.groupId}</groupId>
+									<artifactId>${project.artifactId}</artifactId>
+									<version>${project.version}</version>
+									<type>${project.packaging}</type>
+								</artifactItem>
+							</artifactItems>
+							<outputDirectory>../run/</outputDirectory>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+
+
+</project>

@@ -1,0 +1,91 @@
+#####
+# Configuration file for the Gateway Device App (GDA)
+#
+# This provides a section-based configuration format for use by
+# ConfigUtil with keys defined in ConfigConst.
+#
+
+#
+# Cloud client configuration information
+#
+[Cloud.GatewayService]
+credFile       = ./cred/UbidotsCloudCred.props
+certFile       = ./cert/UbidotsCloudCert.pem
+accessKey	   = ./aws_access_key_id
+secretKey	   = ./aws_secret_access_key
+awsIOTKey	   = ./aws/aws_cert.key
+awsPrivateKey  = ./aws/9d36359cb1-private.pem.key
+awsCertKey     = ./aws/9d36359cb1-certificate.pem.crt
+host           = industrial.api.ubidots.com
+port           = 1883
+securePort     = 8883
+defaultQoS     = 0
+keepAlive      = 30
+enableCrypt    = True
+baseUrl        = https://things.ubidots.com/api/v1.6/
+baseTopic      = /v1.6/devices/
+
+#
+# SMTP client configuration information
+#
+[Smtp.GatewayService]
+credFile       = ./cred/PiotSmtpCred.props
+host           = localhost
+port           = 25
+securePort     = 587
+enableCrypt    = True
+authToken      = ./git/gmail/gmail_cert.pem.crt
+senderEmail	   = "example@gmail.com"
+receiverEmail  = "example@outlook.com"
+
+#
+# MQTT client configuration information
+#
+# NOTE: 'credFile' and 'certFile' will only be set in the config for your local MQTT
+# broker if you've enabled encryption and have user / password authentication
+[Mqtt.GatewayService]
+credFile       = ./cred/PiotMqttCred.props
+certFile       = ./cert/PiotMqttLocalCertFile.pem
+host           = localhost
+port           = 1883
+securePort     = 1884
+defaultQoS     = 0
+keepAlive      = 30
+enableCrypt    = True
+
+#
+# CoAP client and server configuration information
+#
+[Coap.GatewayService]
+credFile       = ./cred/PiotCoapCred.props
+certFile       = ./cert/PiotCoapLocalCertFile.pem
+host           = localhost
+port           = 5683
+securePort     = 5684
+enableCrypt    = False
+
+#
+# GDA specific configuration information
+#
+[GatewayDevice]
+enableLogging           = True
+pollCycleSecs           = 60
+enableMqttClient        = False
+enableCoapServer        = True
+enableCloudClient       = False
+enableSmtpClient        = False
+enablePersistenceClient = False
+testGdaDataPath = /tmp/gda-data
+testCdaDataPath = /tmp/cda-data
+humiditySimFloor   = 35
+humiditySimCeiling = 45
+pressureSimFloor   = 990
+pressureSimCeiling = 1010
+tempSimFloor       = 18
+tempSimCeiling     = 22
+
+[Data.GatewayService]
+credFile = ./cred/PiotPersistenceCred.props
+host = localhost
+port = 6379
+enableCrypt = False
